@@ -141,7 +141,8 @@ div[data-testid="stChatInput"] {
     padding: 6px !important;
 }
 div[data-testid="stChatInput"] textarea {
-    color: #f4f4f5 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     background-color: transparent !important;
     font-family: 'Inter', sans-serif !important;
     font-size: 0.95rem !important;
