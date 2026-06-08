@@ -30,60 +30,105 @@ def rule_based_fallback(query, context_chunks):
     """
     Factual extraction fallback when the LLM service/API key is unavailable.
     """
-    best_chunk = context_chunks[0]
-    text = best_chunk["text"]
-    raw_lines = text.split("\n")
-    
-    # Exclude metadata headers to avoid false positives (e.g. title having the word 'NAV')
-    lines = [l for l in raw_lines if not l.startswith("Document:") and not l.startswith("URL:")]
-    
+    # Combine lines from all retrieved context chunks to have access to full details (chunk 0, 1, 2)
+    all_lines = []
+    for chunk in context_chunks:
+        all_lines.extend(chunk["text"].split("\n"))
+        
+    lines = [l.strip() for l in all_lines if l.strip() and not l.startswith("Document:") and not l.startswith("URL:")]
     query_lower = query.lower()
     
     # 1. Exit Load
     if "exit" in query_lower or "load" in query_lower:
         for line in lines:
-            if "exit load" in line.lower():
-                return f"For this scheme, the {line.strip().replace('- ', '').replace('Exit Load: ', 'exit load is ')}."
+            if "exit load:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"For this scheme, the exit load is: {val}."
                 
     # 2. Expense Ratio
     if "expense" in query_lower or "ratio" in query_lower:
         for line in lines:
-            if "expense ratio" in line.lower():
-                return f"The {line.strip().replace('- ', '').replace('Expense Ratio: ', 'expense ratio is ')} for this fund."
+            if "expense ratio:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The expense ratio for this fund is {val}."
                 
     # 3. Manager
-    if "manager" in query_lower:
+    if "manager" in query_lower or "managed" in query_lower:
         for line in lines:
-            if "manager" in line.lower():
-                mgrs = line.strip().replace('- ', '').replace('Fund Managers:', '').strip()
-                return f"The scheme is managed by {mgrs}."
+            if "fund managers:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The scheme is managed by {val}."
                 
-    # 4. NAV
+    # 4. NAV / Price
     if "nav" in query_lower or "price" in query_lower:
         for line in lines:
-            if "nav" in line.lower() or "current nav" in line.lower():
-                return f"The {line.strip().replace('- ', '').replace('Current NAV: ', 'current NAV is ')}."
+            if "current nav:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The current NAV is {val}."
                 
-    # 5. AUM / Size
+    # 5. AUM / Size / Asset
     if "aum" in query_lower or "size" in query_lower or "asset" in query_lower:
         for line in lines:
             if "aum" in line.lower() or "fund size" in line.lower():
-                aum_val = line.strip().replace('- ', '').replace('AUM (Fund Size): ', '').strip()
-                return f"The AUM (Assets Under Management) for this fund is {aum_val}."
+                val = line.split(":", 1)[1].strip()
+                return f"The AUM (Assets Under Management) for this fund is {val}."
                 
     # 6. Benchmark
-    if "benchmark" in query_lower:
+    if "benchmark" in query_lower or "index" in query_lower:
         for line in lines:
-            if "benchmark" in line.lower():
-                bench = line.strip().replace('- ', '').replace('Benchmark Index: ', '').strip()
-                return f"The fund tracks the benchmark index {bench}."
+            if "benchmark index:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The fund tracks the benchmark index {val}."
 
-    # 7. Holdings
-    if "holding" in query_lower:
+    # 7. Category / Class / Type
+    if "category" in query_lower or "type" in query_lower or "class" in query_lower:
+        for line in lines:
+            if "category:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The category of this scheme is {val}."
+
+    # 8. Launch Date / Allotment / Inception
+    if "launch" in query_lower or "started" in query_lower or "inception" in query_lower or "allotment" in query_lower:
+        for line in lines:
+            if "launch date:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"This scheme was launched on {val}."
+
+    # 9. Minimum Investment / SIP / Lumpsum
+    if "minimum" in query_lower or "min" in query_lower or "sip" in query_lower or "lumpsum" in query_lower:
+        lump_val, sip_val = None, None
+        for line in lines:
+            if "minimum lumpsum investment:" in line.lower():
+                lump_val = line.split(":", 1)[1].strip()
+            if "minimum sip investment:" in line.lower():
+                sip_val = line.split(":", 1)[1].strip()
+        if lump_val and sip_val:
+            return f"The minimum lumpsum investment is {lump_val} and the minimum SIP is {sip_val}."
+        elif lump_val:
+            return f"The minimum lumpsum investment is {lump_val}."
+        elif sip_val:
+            return f"The minimum SIP investment is {sip_val}."
+
+    # 10. Stamp Duty
+    if "stamp" in query_lower or "duty" in query_lower:
+        for line in lines:
+            if "stamp duty:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The stamp duty applicable is {val}."
+
+    # 11. AMC / Fund House / Provider / Company
+    if "amc" in query_lower or "fund house" in query_lower or "provider" in query_lower or "company" in query_lower:
+        for line in lines:
+            if "fund house:" in line.lower() or "amc:" in line.lower():
+                val = line.split(":", 1)[1].strip()
+                return f"The fund is offered by {val}."
+
+    # 12. Holdings / Portfolio / Stocks
+    if "holding" in query_lower or "portfolio" in query_lower or "stock" in query_lower or "share" in query_lower:
         holdings_lines = []
         capture = False
         for line in lines:
-            if "holdings" in line.lower():
+            if "holdings:" in line.lower():
                 capture = True
                 continue
             if capture and line.startswith("- "):
@@ -91,15 +136,30 @@ def rule_based_fallback(query, context_chunks):
                 if len(holdings_lines) >= 3:
                     break
         if holdings_lines:
-            return f"The top holdings for this fund include: {', '.join(holdings_lines)}."
+            return f"The top holdings include: {', '.join(holdings_lines)}."
+
+    # 13. Returns / Yield / Performance
+    if "return" in query_lower or "yield" in query_lower or "performance" in query_lower:
+        returns_lines = []
+        capture = False
+        for line in lines:
+            if "historical returns:" in line.lower():
+                capture = True
+                continue
+            if capture and line.startswith("- "):
+                returns_lines.append(line.strip().replace("- ", ""))
+                if len(returns_lines) >= 3:
+                    break
+        if returns_lines:
+            return f"The historical returns are: {', '.join(returns_lines)}."
             
     # Default fallback: return description
     for line in lines:
         if "description:" in line.lower():
-            desc = line.replace("Description:", "").strip()
-            return desc
+            val = line.split(":", 1)[1].strip()
+            return val
             
-    return f"The requested details can be verified in the scheme document."
+    return f"The details for your query are available in the official scheme documentation."
 
 def query_llm(system_prompt, user_query):
     """
