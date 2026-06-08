@@ -9,3 +9,4 @@ numpy
 pytest
 google-genai
 sentence-transformers
+torchvision
