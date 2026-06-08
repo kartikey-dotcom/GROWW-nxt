@@ -106,14 +106,24 @@ def format_mf_data(mf_data, url):
     if holdings:
         lines.append("\nTop Holdings:")
         for h in holdings[:15]:
-            lines.append(f"- {h.get('company_name') or h.get('name')}: {h.get('corpus_per') or h.get('percent') or h.get('assets')}% (Sector: {h.get('industry_name') or h.get('sector')})")
+            sector = h.get('sector_name') or h.get('industry_name') or h.get('sector') or 'None'
+            lines.append(f"- {h.get('company_name') or h.get('name')}: {h.get('corpus_per') or h.get('percent') or h.get('assets')}% (Sector: {sector})")
             
     # Returns
     stats = mf_data.get('return_stats', [])
-    if stats:
+    if stats and isinstance(stats, list) and len(stats) > 0:
+        r_dict = stats[0]
         lines.append("\nHistorical Returns:")
-        for s in stats:
-            lines.append(f"- {s.get('period')}: {s.get('returns')}%")
+        periods = [
+            ("1-Year", r_dict.get("return1y")),
+            ("3-Year", r_dict.get("return3y")),
+            ("5-Year", r_dict.get("return5y")),
+            ("10-Year", r_dict.get("return10y")),
+            ("Since Inception", r_dict.get("return_since_created") or r_dict.get("return_default"))
+        ]
+        for label, val in periods:
+            if val is not None:
+                lines.append(f"- {label}: {val}%")
             
     return "\n".join(lines)
 
@@ -177,7 +187,25 @@ def format_etf_data(page_props, url):
     if holdings:
         lines.append("\nHoldings:")
         for h in holdings[:15]:
-            lines.append(f"- {h.get('companyName')}: {h.get('percent')}% (Sector: {h.get('sectorName')})")
+            sector = h.get('sectorName') or h.get('sector') or 'None'
+            lines.append(f"- {h.get('companyName') or h.get('name')}: {h.get('percent') or h.get('corpus_per')}% (Sector: {sector})")
+            
+    # Returns
+    returns = page_props.get('categoryReturnsData', {})
+    if returns:
+        lines.append("\nHistorical Returns:")
+        periods = [
+            ("1-Month", returns.get("return1M")),
+            ("3-Month", returns.get("return3M")),
+            ("6-Month", returns.get("return6M")),
+            ("1-Year", returns.get("return1Y")),
+            ("3-Year", returns.get("return3Y")),
+            ("5-Year", returns.get("return5Y")),
+            ("Since Inception", returns.get("returnAll"))
+        ]
+        for label, val in periods:
+            if val is not None:
+                lines.append(f"- {label}: {val}%")
             
     return "\n".join(lines)
 

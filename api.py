@@ -2,6 +2,7 @@ import os
 import re
 from typing import Optional
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from datetime import datetime
 from rag_engine import generate_response, LLM_MODEL
@@ -9,6 +10,15 @@ from rag_engine import generate_response, LLM_MODEL
 app = FastAPI(
     title="Mutual Fund FAQ Assistant API",
     description="REST API for facts-only Mutual Fund Q&A using Groww data."
+)
+
+# Enable CORS (Cross-Origin Resource Sharing)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class ChatRequest(BaseModel):

@@ -3,7 +3,7 @@ import json
 import os
 import re
 from datetime import datetime
-from rag_engine import generate_response
+from rag_engine import generate_response, LLM_MODEL
 
 # Set page config
 st.set_page_config(
@@ -323,7 +323,6 @@ div[data-testid="stChatInput"] button:hover {
 """, unsafe_allow_html=True)
 
 # Helper: Load scraped data
-@st.cache_data
 def load_scheme_metadata():
     json_path = os.path.join("data", "scraped_data.json")
     if os.path.exists(json_path):
@@ -430,7 +429,7 @@ def format_bot_response(text):
         <div class="chat-sender">Assistant</div>
         <div class="chat-message-content">{html_text}</div>
         <div class="chat-footer">
-            <span>Model: gemini-2.5-flash</span>
+            <span>Model: {LLM_MODEL}</span>
             <span>Last updated: {last_updated}</span>
         </div>
     </div>

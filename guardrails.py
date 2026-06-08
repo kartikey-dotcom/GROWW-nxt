@@ -70,6 +70,24 @@ def extract_hyperlinks(text):
     """
     return re.findall(r'\[([^\]]+)\]\((https?://[^\)]+)\)', text)
 
+def replace_extra_links(text):
+    """
+    Finds all markdown links in the text. Keeps the first match as a hyperlink,
+    and converts all subsequent matches to plain text (removing the brackets and URL).
+    Processes right-to-left to ensure match offsets are preserved during replacement.
+    """
+    pattern = r'\[([^\]]+)\]\((https?://[^\)]+)\)'
+    matches = list(re.finditer(pattern, text))
+    if len(matches) <= 1:
+        return text
+        
+    result = text
+    for match in reversed(matches[1:]):
+        start, end = match.span()
+        display_text = match.group(1)
+        result = result[:start] + display_text + result[end:]
+    return result
+
 def enforce_guardrails(response_text, source_url, source_title, fetch_date):
     """
     Enforces compliance constraints post-generation:
@@ -80,28 +98,24 @@ def enforce_guardrails(response_text, source_url, source_title, fetch_date):
     # Remove any existing last-updated footers to avoid duplication
     response_text = re.sub(r'Last updated from sources:.*', '', response_text, flags=re.IGNORECASE).strip()
     
+    # 1. Truncate sentences first to ensure we check links on the final text
+    response_text = clean_and_truncate_sentences(response_text, max_sentences=3)
+    
+    # 2. Extract remaining hyperlinks
     links = extract_hyperlinks(response_text)
     
     if not links:
+        # No links found in the truncated text, append citation at the end
         citation_link = f" [{source_title}]({source_url})"
-        response_text = clean_and_truncate_sentences(response_text, max_sentences=3)
         if response_text.endswith('.'):
             response_text = response_text[:-1] + citation_link + "."
         else:
             response_text = response_text + citation_link + "."
     else:
-        # If there are multiple links, we keep only the first occurrence and remove formatting from the rest
+        # One or more links exist, keep only the first one
         if len(links) > 1:
-            first_link = links[0]
-            first_occurrence = True
-            for display, href in links:
-                if first_occurrence:
-                    first_occurrence = False
-                    continue
-                response_text = response_text.replace(f"[{display}]({href})", display)
-        
-        response_text = clean_and_truncate_sentences(response_text, max_sentences=3)
-        
+            response_text = replace_extra_links(response_text)
+            
     footer = f"\n\n*Last updated from sources: {fetch_date}*"
     return response_text + footer
 

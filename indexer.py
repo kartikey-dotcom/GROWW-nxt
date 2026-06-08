@@ -37,26 +37,29 @@ def rebuild_index():
     
     # Initialize the lightweight BGE-small model
     print("Loading BGE-small embedding model ('BAAI/bge-small-en-v1.5')...")
+    model_loaded = False
     try:
         model = SentenceTransformer('BAAI/bge-small-en-v1.5')
+        model_loaded = True
     except Exception as e:
-        print(f"Error loading embedding model: {e}")
-        return False
+        print(f"Warning: Error loading embedding model: {e}. Rebuilding index with keyword-only fallback (no embeddings).")
         
     # Extract text content for embedding
     texts = [chunk["text"] for chunk in chunks]
     
-    print("Generating dense vector embeddings...")
-    try:
-        embeddings = model.encode(texts, normalize_embeddings=True)
-    except Exception as e:
-        print(f"Error generating embeddings: {e}")
-        return False
+    embeddings = None
+    if model_loaded:
+        print("Generating dense vector embeddings...")
+        try:
+            embeddings = model.encode(texts, normalize_embeddings=True)
+        except Exception as e:
+            print(f"Warning: Error generating embeddings: {e}. Continuing with keyword-only fallback.")
+            embeddings = None
         
     indexed_chunks = []
     for i, chunk in enumerate(chunks):
-        # Convert embedding numpy array to a standard list for JSON serialization
-        emb_list = embeddings[i].tolist()
+        # Convert embedding numpy array to a standard list for JSON serialization if present
+        emb_list = embeddings[i].tolist() if embeddings is not None else None
         
         # Compute basic word frequencies for TF-IDF keyword search fallback
         words = re.findall(r'\w+', chunk["text"].lower())
@@ -69,6 +72,7 @@ def rebuild_index():
             "text": chunk["text"],
             "source_url": chunk["source_url"],
             "document_title": chunk["document_title"],
+            "last_updated": chunk.get("last_updated", ""),
             "embedding": emb_list,
             "word_freq": word_freq
         })

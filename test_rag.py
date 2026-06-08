@@ -83,6 +83,27 @@ def test_scheduler_delay():
     assert delay3 == 22.5 * 3600, f"Expected 81000 seconds, got {delay3}"
     print("test_scheduler_delay PASSED")
 
+def test_guardrails_multilink():
+    print("Running test_guardrails_multilink...")
+    from guardrails import enforce_guardrails, replace_extra_links
+    
+    # Test 1: replace_extra_links directly
+    raw_text = "See [HDFC Small Cap](https://url) and [HDFC Small Cap](https://url) and [HDFC Silver](https://url2)."
+    clean = replace_extra_links(raw_text)
+    assert clean == "See [HDFC Small Cap](https://url) and HDFC Small Cap and HDFC Silver."
+    
+    # Test 2: enforce_guardrails with multiple links
+    response = enforce_guardrails(
+        "See [HDFC Small Cap](https://url) and [HDFC Small Cap](https://url).",
+        "https://url", "HDFC Small Cap Fund Direct Growth", "2026-06-08"
+    )
+    # It should only have 1 link in the final string
+    links = re.findall(r'\[([^\]]+)\]\((https?://[^\)]+)\)', response)
+    assert len(links) == 1, f"Expected exactly 1 link, found {len(links)}"
+    assert links[0][0] == "HDFC Small Cap"
+    assert "Last updated from sources: 2026-06-08" in response
+    print("test_guardrails_multilink PASSED")
+
 if __name__ == "__main__":
     print("=========================================")
     print("STARTING UNIT TESTS FOR RAG COMPLIANCE...")
@@ -95,6 +116,7 @@ if __name__ == "__main__":
         test_factual_query_constraints()
         test_nav_query()
         test_scheduler_delay()
+        test_guardrails_multilink()
         print("=========================================")
         print("ALL TESTS PASSED SUCCESSFULLY!")
         print("=========================================")

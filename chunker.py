@@ -47,6 +47,8 @@ def split_content_to_chunks(document):
     # Split the remaining text by double newlines into logical sections
     sections = remaining_text.split("\n\n")
     
+    last_updated = document.get("last_updated", "")
+    
     chunks = []
     for idx, section in enumerate(sections):
         section_text = section.strip()
@@ -60,7 +62,8 @@ def split_content_to_chunks(document):
             "id": f"{url.split('/')[-1]}_chunk_{idx}",
             "text": chunk_text,
             "source_url": url,
-            "document_title": title
+            "document_title": title,
+            "last_updated": last_updated
         })
     return chunks
 
