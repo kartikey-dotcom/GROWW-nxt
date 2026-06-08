@@ -131,14 +131,17 @@ div.stButton > button:active {
 
 /* Chat Input bar layout */
 div[data-testid="stChatInput"] {
-    background-color: rgba(24, 24, 27, 0.8) !important;
+    background-color: #18181b !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px !important;
     box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.3) !important;
     margin-bottom: 20px !important;
     padding: 6px !important;
+}
+div[data-testid="stChatInput"] div {
+    background-color: transparent !important;
 }
 div[data-testid="stChatInput"] textarea {
     color: #ffffff !important;
