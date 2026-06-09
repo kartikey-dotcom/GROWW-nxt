@@ -272,26 +272,6 @@ div[data-testid="stChatInput"] button:hover {
     filter: drop-shadow(0 8px 16px rgba(14, 165, 233, 0.3));
 }
 
-/* Disclaimer banner */
-.disclaimer-banner {
-    background: rgba(2, 132, 199, 0.04) !important;
-    border: 1px solid rgba(2, 132, 199, 0.15) !important;
-    border-left: 4px solid #0ea5e9 !important;
-    padding: 12px 16px !important;
-    border-radius: 12px !important;
-    color: #334155 !important;
-    font-size: 0.85rem !important;
-    margin-bottom: 24px !important;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.warning-icon {
-    font-size: 1.2rem;
-}
-.disclaimer-text {
-    line-height: 1.4;
-}
 
 .preset-section-title {
     font-family: 'Outfit', sans-serif !important;
@@ -402,7 +382,7 @@ if schemes_data:
 else:
     st.sidebar.warning("No scraped scheme metadata found. Please run the scraper first.")
 
-# Header Layout with logo
+# Header Layout with logo and disclaimer subtitle
 st.markdown("""
 <div class="header-container">
     <div class="header-main">
@@ -422,18 +402,7 @@ st.markdown("""
         </svg>
         <h1 class="header-title">Mutual Fund FAQ Assistant</h1>
     </div>
-    <div class="header-subtitle">Strictly facts-only chatbot answering queries using verified source documents</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Mandatory Disclaimer Banner (Amber styled warning alert)
-st.markdown("""
-<div class="disclaimer-banner">
-    <span class="warning-icon">⚠️</span>
-    <div class="disclaimer-text">
-        <strong>Disclaimer: Facts-Only. No Investment Advice.</strong><br/>
-        This chatbot is designed to provide purely factual, objective details (NAV, AUM, Exit Load, holdings, etc.) retrieved from official Groww documents. It is legally prohibited from offering recommendations, comparisons, buy/sell calls, or subjective financial suggestions.
-    </div>
+    <div class="header-subtitle">Facts-only. No investment advice. Answers retrieved exclusively from official sources.</div>
 </div>
 """, unsafe_allow_html=True)
 
