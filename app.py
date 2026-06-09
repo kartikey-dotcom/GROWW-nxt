@@ -303,6 +303,16 @@ div[data-testid="stChatInput"] button:hover {
     color: #475569 !important;
     margin-bottom: 16px !important;
     margin-top: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+.preset-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.preset-section-title:hover .preset-icon {
+    transform: scale(1.15) rotate(-5deg);
+    filter: drop-shadow(0 4px 8px rgba(14, 165, 233, 0.2));
 }
 
 /* Centered clear chat container */
@@ -480,7 +490,21 @@ if "messages" not in st.session_state:
 
 # Show welcome page/Preset click action buttons if chat is fresh/empty
 if not st.session_state.messages:
-    st.markdown("<div class='preset-section-title'>💡 Click a sample question to try the RAG Engine:</div>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='preset-section-title'>
+        <svg class="preset-icon" viewBox="0 0 32 32" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+          <path d="M 18,10 H 6 A 4,4 0 0,0 2,14 V 24 A 4,4 0 0,0 6,28 L 4,33 L 10,28 H 20 A 4,4 0 0,0 24,24 V 18" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 6,15 H 16" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 6,19 H 18" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 6,23 H 14" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 22.5,13 C 21.2,11 21,8.5 22.5,6.5 C 24,4.5 27,4.5 28.5,6.5 C 29.8,8.5 29.6,11 28.5,13" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 23.5,15.5 H 27.5" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 23.5,18 H 27.5" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 24.5,20.5 H 26.5" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span>Click a sample question to try the RAG Engine:</span>
+    </div>
+    """, unsafe_allow_html=True)
     
     presets = [
         ("📋 Exit load HDFC Small Cap", "What is the exit load of HDFC Small Cap Fund?"),
