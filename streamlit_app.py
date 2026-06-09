@@ -133,16 +133,19 @@ div.stButton > button:active {
     transform: translateY(0) !important;
 }
 
-/* Chat Input bar layout */
+/* Chat Input bar layout - Compact & Mobile Friendly */
 div[data-testid="stChatInput"] {
     background-color: #ffffff !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(14, 165, 233, 0.25) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.06) !important;
+    border-radius: 28px !important; /* Rounded pill style */
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05) !important;
     margin-bottom: 20px !important;
-    padding: 6px !important;
+    padding: 3px 8px !important; /* Reduced height padding */
+    max-width: 90% !important; /* Center & constraint on wider viewports */
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 div[data-testid="stChatInput"] div {
     background-color: transparent !important;
@@ -152,7 +155,8 @@ div[data-testid="stChatInput"] textarea {
     -webkit-text-fill-color: #1e293b !important;
     background-color: transparent !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 0.95rem !important;
+    font-size: 0.88rem !important; /* Compact font size */
+    line-height: 1.3 !important;
 }
 div[data-testid="stChatInput"] textarea::placeholder {
     color: #94a3b8 !important;
@@ -160,11 +164,21 @@ div[data-testid="stChatInput"] textarea::placeholder {
 div[data-testid="stChatInput"] button {
     background-color: #0ea5e9 !important;
     color: white !important;
-    border-radius: 10px !important;
-    transition: background-color 0.2s !important;
+    border-radius: 50% !important; /* Circular send button */
+    transition: all 0.2s ease !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    min-width: 30px !important;
+    margin: auto 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 div[data-testid="stChatInput"] button:hover {
     background-color: #0284c7 !important;
+    transform: scale(1.05) !important;
 }
 
 /* Chat bubble structures */
