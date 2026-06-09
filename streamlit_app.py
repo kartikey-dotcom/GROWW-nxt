@@ -262,19 +262,14 @@ div[data-testid="stChatInput"] button:hover {
     color: #475569;
     margin-top: 6px;
 }
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #10b981;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 8px #10b981;
-    animation: pulse 2s infinite;
+.header-logo {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.15));
 }
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+.header-logo:hover {
+    transform: translateY(-2px) scale(1.08);
+    filter: drop-shadow(0 8px 16px rgba(14, 165, 233, 0.3));
 }
 
 /* Disclaimer banner */
@@ -407,11 +402,24 @@ if schemes_data:
 else:
     st.sidebar.warning("No scraped scheme metadata found. Please run the scraper first.")
 
-# Header Layout with blinking status dot
+# Header Layout with logo
 st.markdown("""
 <div class="header-container">
     <div class="header-main">
-        <span class="status-dot"></span>
+        <svg class="header-logo" viewBox="0 0 44 44" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="44" height="44" rx="12" fill="rgba(0, 208, 156, 0.08)"/>
+          <path d="M12 28V24C12 22.8954 12.8954 22 14 22C15.1046 22 16 22.8954 16 24V28" stroke="url(#logoGrad)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M20 28V18C20 16.8954 20.8954 16 22 16C23.1046 16 24 16.8954 24 18V28" stroke="url(#logoGrad)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M28 28V12C28 10.8954 28.8954 10 30 10C31.1046 10 32 10.8954 32 12V28" stroke="url(#logoGrad)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M14 22L22 16L30 10" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-dasharray="1.5 3"/>
+          <circle cx="30" cy="10" r="3" fill="#00d09c"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="12" y1="28" x2="32" y2="10" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00d09c"/>
+              <stop offset="1" stop-color="#0ea5e9"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <h1 class="header-title">Mutual Fund FAQ Assistant</h1>
     </div>
     <div class="header-subtitle">Strictly facts-only chatbot answering queries using verified source documents</div>
