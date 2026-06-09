@@ -138,27 +138,41 @@ div[data-testid="stChatInput"] {
     background-color: #ffffff !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(14, 165, 233, 0.2) !important;
-    border-radius: 12px !important; /* Styled to match disclaimer box corners */
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.04) !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
+    border-radius: 20px !important; /* Styled to match preset chip/disclaimer box corners */
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.05) !important;
     margin-bottom: 20px !important;
-    padding: 2px 10px !important; /* Low padding to reduce height */
-    max-width: 720px !important; /* Matches disclaimer box width on desktop */
-    width: 85% !important; /* Compact width on mobile */
+    padding: 0px 8px !important; /* Minimal padding */
+    max-width: 600px !important; /* Perfectly proportional width on desktop */
+    width: 90% !important; /* Centered width on mobile screen */
     left: 0 !important;
     right: 0 !important;
-    margin: 0 auto !important; /* Horizontally centers the input */
+    margin: 0 auto !important;
+    min-height: 38px !important; /* Compact, single-line height */
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
 }
-div[data-testid="stChatInput"] div {
+div[data-testid="stChatInput"] > div {
     background-color: transparent !important;
+    align-items: center !important; /* Centering textarea and send button vertically */
+    display: flex !important;
+    height: 100% !important;
+    padding: 0 !important;
 }
 div[data-testid="stChatInput"] textarea {
     color: #1e293b !important;
     -webkit-text-fill-color: #1e293b !important;
     background-color: transparent !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 0.82rem !important; /* Smaller text size */
-    line-height: 1.25 !important;
+    font-size: 0.82rem !important; /* Proportional text size */
+    line-height: 1.2 !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    padding: 2px 0px !important;
+    margin: 0 !important;
+    overflow-y: hidden !important;
+    resize: none !important;
 }
 div[data-testid="stChatInput"] textarea::placeholder {
     color: #94a3b8 !important;
@@ -168,11 +182,11 @@ div[data-testid="stChatInput"] button {
     color: white !important;
     border-radius: 50% !important; /* Circular send button */
     transition: all 0.2s ease !important;
-    width: 24px !important; /* Smaller button diameter */
+    width: 24px !important; /* Proportionate size */
     height: 24px !important;
     min-height: 24px !important;
     min-width: 24px !important;
-    margin: auto 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
