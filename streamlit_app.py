@@ -272,6 +272,29 @@ div[data-testid="stChatInput"] button:hover {
     filter: drop-shadow(0 8px 16px rgba(14, 165, 233, 0.3));
 }
 
+/* Compact Disclaimer Alert */
+.disclaimer-mini {
+    background: rgba(14, 165, 233, 0.04) !important;
+    border: 1px solid rgba(14, 165, 233, 0.15) !important;
+    border-left: 3px solid #0ea5e9 !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    color: #475569 !important;
+    font-size: 0.8rem !important;
+    margin-bottom: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+.disclaimer-icon-mini {
+    font-size: 0.9rem !important;
+}
+.disclaimer-text-mini {
+    line-height: 1.3 !important;
+}
+.disclaimer-text-mini strong {
+    color: #0369a1 !important;
+}
 
 .preset-section-title {
     font-family: 'Outfit', sans-serif !important;
@@ -382,7 +405,7 @@ if schemes_data:
 else:
     st.sidebar.warning("No scraped scheme metadata found. Please run the scraper first.")
 
-# Header Layout with logo and disclaimer subtitle
+# Header Layout with logo, subtitle and compact disclaimer alert
 st.markdown("""
 <div class="header-container">
     <div class="header-main">
@@ -402,7 +425,12 @@ st.markdown("""
         </svg>
         <h1 class="header-title">Mutual Fund FAQ Assistant</h1>
     </div>
-    <div class="header-subtitle">Facts-only. No investment advice. Answers retrieved exclusively from official sources.</div>
+    <div class="header-subtitle">Strictly facts-only chatbot answering queries using verified source documents</div>
+</div>
+
+<div class="disclaimer-mini">
+    <span class="disclaimer-icon-mini">⚠️</span>
+    <div class="disclaimer-text-mini"><strong>Facts-Only. No Investment Advice.</strong> Responses are strictly objective and retrieved from official AMC sources.</div>
 </div>
 """, unsafe_allow_html=True)
 
