@@ -133,19 +133,21 @@ div.stButton > button:active {
     transform: translateY(0) !important;
 }
 
-/* Chat Input bar layout - Compact & Mobile Friendly */
+/* Chat Input bar layout - Extremely Compact & Mobile Friendly */
 div[data-testid="stChatInput"] {
     background-color: #ffffff !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(14, 165, 233, 0.25) !important;
-    border-radius: 28px !important; /* Rounded pill style */
-    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05) !important;
+    border: 1px solid rgba(14, 165, 233, 0.2) !important;
+    border-radius: 12px !important; /* Styled to match disclaimer box corners */
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.04) !important;
     margin-bottom: 20px !important;
-    padding: 3px 8px !important; /* Reduced height padding */
-    max-width: 90% !important; /* Center & constraint on wider viewports */
-    margin-left: auto !important;
-    margin-right: auto !important;
+    padding: 2px 10px !important; /* Low padding to reduce height */
+    max-width: 720px !important; /* Matches disclaimer box width on desktop */
+    width: 85% !important; /* Compact width on mobile */
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important; /* Horizontally centers the input */
 }
 div[data-testid="stChatInput"] div {
     background-color: transparent !important;
@@ -155,8 +157,8 @@ div[data-testid="stChatInput"] textarea {
     -webkit-text-fill-color: #1e293b !important;
     background-color: transparent !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 0.88rem !important; /* Compact font size */
-    line-height: 1.3 !important;
+    font-size: 0.82rem !important; /* Smaller text size */
+    line-height: 1.25 !important;
 }
 div[data-testid="stChatInput"] textarea::placeholder {
     color: #94a3b8 !important;
@@ -166,10 +168,10 @@ div[data-testid="stChatInput"] button {
     color: white !important;
     border-radius: 50% !important; /* Circular send button */
     transition: all 0.2s ease !important;
-    width: 30px !important;
-    height: 30px !important;
-    min-height: 30px !important;
-    min-width: 30px !important;
+    width: 24px !important; /* Smaller button diameter */
+    height: 24px !important;
+    min-height: 24px !important;
+    min-width: 24px !important;
     margin: auto 0 !important;
     padding: 0 !important;
     display: flex !important;
@@ -180,6 +182,7 @@ div[data-testid="stChatInput"] button:hover {
     background-color: #0284c7 !important;
     transform: scale(1.05) !important;
 }
+
 
 /* Chat bubble structures */
 .chat-bubble-user {
