@@ -20,11 +20,11 @@ st.markdown("""
 
 /* Force App Background and Base Font */
 .stApp {
-    background-color: #0c0c0e !important;
-    background-image: radial-gradient(at 50% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
-                      radial-gradient(at 0% 100%, rgba(15, 23, 42, 0.2) 0px, transparent 50%) !important;
+    background-color: #f8fafc !important;
+    background-image: radial-gradient(at 50% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                      radial-gradient(at 0% 100%, rgba(224, 242, 254, 0.15) 0px, transparent 50%) !important;
     font-family: 'Inter', sans-serif !important;
-    color: #f4f4f5 !important;
+    color: #1e293b !important;
 }
 
 /* Hide Streamlit Headers, Footers, and Main Menus */
@@ -37,76 +37,79 @@ div.block-container {
     max-width: 820px !important;
     padding: 3rem 2rem 8rem 2rem !important;
     margin: 0 auto !important;
-    background: rgba(18, 18, 24, 0.7) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(14, 165, 233, 0.15) !important;
     border-radius: 24px !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.08) !important;
     margin-top: 30px !important;
 }
 
 /* Sidebar Styling */
 section[data-testid="stSidebar"] {
-    background-color: #0c0c0e !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: #ffffff !important;
+    border-right: 1px solid rgba(14, 165, 233, 0.12) !important;
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
     padding-top: 2rem !important;
 }
+section[data-testid="stSidebar"] * {
+    color: #1e293b !important;
+}
 
 /* Selectbox styling */
 div[data-testid="stSelectbox"] > label {
-    color: #a1a1aa !important;
+    color: #475569 !important;
     font-size: 0.85rem !important;
     font-weight: 500 !important;
     margin-bottom: 8px !important;
 }
 div[data-testid="stSelectbox"] div[data-baseweb="select"] {
-    background-color: #18181b !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: #ffffff !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
     border-radius: 10px !important;
 }
 div[data-testid="stSelectbox"] div[data-baseweb="select"] * {
-    color: #f4f4f5 !important;
+    color: #1e293b !important;
 }
 
 /* Metadata Card in Sidebar */
 .meta-card {
-    background: rgba(24, 24, 27, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(14, 165, 233, 0.15) !important;
     border-radius: 16px !important;
     padding: 16px !important;
     margin-top: 20px !important;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.05) !important;
 }
 .meta-card-title {
     font-family: 'Outfit', sans-serif !important;
     font-size: 1.15rem !important;
     font-weight: 600 !important;
-    color: #ffffff !important;
+    color: #0369a1 !important;
     margin-bottom: 12px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.12) !important;
     padding-bottom: 8px !important;
 }
 .meta-item {
     font-size: 0.85rem !important;
     margin-bottom: 8px !important;
-    color: #d4d4d8 !important;
+    color: #334155 !important;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
 }
 .meta-label {
     font-weight: 500 !important;
-    color: #71717a !important;
+    color: #64748b !important;
 }
 
 /* Preset Action Chips as round pills */
 div.stButton > button {
-    background-color: rgba(39, 39, 42, 0.6) !important;
-    color: #d4d4d8 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: #ffffff !important;
+    color: #475569 !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
     border-radius: 20px !important;
     padding: 8px 16px !important;
     font-size: 0.85rem !important;
@@ -117,13 +120,14 @@ div.stButton > button {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.04) !important;
 }
 div.stButton > button:hover {
-    background-color: rgba(79, 70, 229, 0.15) !important;
-    border-color: #6366f1 !important;
-    color: #ffffff !important;
+    background-color: rgba(14, 165, 233, 0.08) !important;
+    border-color: #0284c7 !important;
+    color: #0284c7 !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15) !important;
 }
 div.stButton > button:active {
     transform: translateY(0) !important;
@@ -131,12 +135,12 @@ div.stButton > button:active {
 
 /* Chat Input bar layout */
 div[data-testid="stChatInput"] {
-    background-color: #18181b !important;
+    background-color: #ffffff !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
     border-radius: 16px !important;
-    box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.06) !important;
     margin-bottom: 20px !important;
     padding: 6px !important;
 }
@@ -144,28 +148,28 @@ div[data-testid="stChatInput"] div {
     background-color: transparent !important;
 }
 div[data-testid="stChatInput"] textarea {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
     background-color: transparent !important;
     font-family: 'Inter', sans-serif !important;
     font-size: 0.95rem !important;
 }
 div[data-testid="stChatInput"] textarea::placeholder {
-    color: #71717a !important;
+    color: #94a3b8 !important;
 }
 div[data-testid="stChatInput"] button {
-    background-color: #4f46e5 !important;
+    background-color: #0ea5e9 !important;
     color: white !important;
     border-radius: 10px !important;
     transition: background-color 0.2s !important;
 }
 div[data-testid="stChatInput"] button:hover {
-    background-color: #6366f1 !important;
+    background-color: #0284c7 !important;
 }
 
 /* Chat bubble structures */
 .chat-bubble-user {
-    background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%) !important;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
     color: #ffffff !important;
     border-radius: 18px 18px 4px 18px !important;
     padding: 12px 18px !important;
@@ -174,13 +178,13 @@ div[data-testid="stChatInput"] button:hover {
     margin-left: auto !important;
     font-size: 0.95rem !important;
     line-height: 1.5 !important;
-    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.15) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     text-align: left !important;
 }
 .chat-bubble-bot {
-    background-color: #1e1e24 !important;
-    color: #f4f4f5 !important;
+    background-color: #ffffff !important;
+    color: #1e293b !important;
     border-radius: 18px 18px 18px 4px !important;
     padding: 12px 18px !important;
     margin-bottom: 16px !important;
@@ -188,13 +192,13 @@ div[data-testid="stChatInput"] button:hover {
     margin-right: auto !important;
     font-size: 0.95rem !important;
     line-height: 1.5 !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(14, 165, 233, 0.12) !important;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.04) !important;
 }
 .chat-sender {
     font-size: 0.75rem !important;
     font-weight: 600 !important;
-    color: #a1a1aa !important;
+    color: #0284c7 !important;
     margin-bottom: 6px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
@@ -202,7 +206,7 @@ div[data-testid="stChatInput"] button:hover {
 .chat-sender-user {
     font-size: 0.75rem !important;
     font-weight: 600 !important;
-    color: #c7d2fe !important;
+    color: #e0f2fe !important;
     margin-bottom: 6px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
@@ -214,31 +218,31 @@ div[data-testid="stChatInput"] button:hover {
     white-space: pre-wrap !important;
 }
 .chat-bubble-bot a {
-    color: #38bdf8 !important;
+    color: #0284c7 !important;
     text-decoration: none !important;
     font-weight: 500 !important;
-    border-bottom: 1px dashed rgba(56, 189, 248, 0.4) !important;
+    border-bottom: 1px dashed rgba(2, 132, 199, 0.4) !important;
     transition: all 0.2s !important;
 }
 .chat-bubble-bot a:hover {
-    color: #7dd3fc !important;
+    color: #0369a1 !important;
     border-bottom-style: solid !important;
 }
 .chat-footer {
     display: flex !important;
     justify-content: space-between !important;
     font-size: 0.72rem !important;
-    color: #71717a !important;
+    color: #64748b !important;
     margin-top: 10px !important;
     padding-top: 6px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 1px solid rgba(14, 165, 233, 0.1) !important;
 }
 
 /* Header design */
 .header-container {
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(14, 165, 233, 0.1);
 }
 .header-main {
     display: flex;
@@ -249,13 +253,13 @@ div[data-testid="stChatInput"] button:hover {
     font-family: 'Outfit', sans-serif !important;
     font-size: 2rem !important;
     font-weight: 700 !important;
-    color: #ffffff !important;
+    color: #0f172a !important;
     margin: 0 !important;
     letter-spacing: -0.02em;
 }
 .header-subtitle {
     font-size: 0.92rem;
-    color: #71717a;
+    color: #475569;
     margin-top: 6px;
 }
 .status-dot {
@@ -275,12 +279,12 @@ div[data-testid="stChatInput"] button:hover {
 
 /* Disclaimer banner */
 .disclaimer-banner {
-    background: rgba(245, 158, 11, 0.08) !important;
-    border: 1px solid rgba(245, 158, 11, 0.2) !important;
-    border-left: 4px solid #f59e0b !important;
+    background: rgba(2, 132, 199, 0.04) !important;
+    border: 1px solid rgba(2, 132, 199, 0.15) !important;
+    border-left: 4px solid #0ea5e9 !important;
     padding: 12px 16px !important;
     border-radius: 12px !important;
-    color: #fef08a !important;
+    color: #334155 !important;
     font-size: 0.85rem !important;
     margin-bottom: 24px !important;
     display: flex;
@@ -298,7 +302,7 @@ div[data-testid="stChatInput"] button:hover {
     font-family: 'Outfit', sans-serif !important;
     font-size: 1.05rem !important;
     font-weight: 600 !important;
-    color: #a1a1aa !important;
+    color: #475569 !important;
     margin-bottom: 16px !important;
     margin-top: 20px !important;
 }
@@ -309,19 +313,35 @@ div[data-testid="stChatInput"] button:hover {
     margin-top: 24px;
 }
 .clear-container div.stButton > button {
-    background-color: rgba(239, 68, 68, 0.15) !important;
-    color: #fca5a5 !important;
-    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    background-color: rgba(239, 68, 68, 0.06) !important;
+    color: #ef4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.15) !important;
     border-radius: 12px !important;
     width: auto !important;
     margin: 0 auto !important;
     padding: 6px 16px !important;
 }
 .clear-container div.stButton > button:hover {
-    background-color: rgba(239, 68, 68, 0.3) !important;
+    background-color: rgba(239, 68, 68, 0.15) !important;
     border-color: #ef4444 !important;
     color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 </style>
 """, unsafe_allow_html=True)
